@@ -2,29 +2,29 @@
   <h1>
     Welcome to {{ title }}!
   </h1>
+    <form>
+        <select (change)=onChange($event.target.value)>
+        <option [value]="album.id" *ngFor="let album of albums"> {{album.title}}</option>
+        </select> <br>
 
-  <form>
-    <select (change)=onChange($event.target.value)>
-      <option [value]="album.id" *ngFor="let album of albums"> {{album.title}}</option>
-    </select> <br>
+        titolo: <input #t> <br>
+        durata : <input #l> <br>
+        data pubblicazione: <input type = "date" #d> <br>
 
-    titolo: <input #t> <br>
-    durata : <input #l> <br>
-    data pubblicazione: <input type = "date" #d> <br>
+        <button (click)= "onClick(t,d,l)"> Prenota </button>
 
-    <button (click)= "onClick(t,d,l)"> Prenota </button>
+    </form>
 
-  </form>
+    {{selectedRoom | json}}
+
+    <ul>
+    <li *ngFor="let song of songList">
+        {{song.album.title}} : {{song | json}}
+    </li>
+    </ul>
 
 
-  {{selectedRoom | json}}
+    {{songList | json}}
+     <button >Nascondi/Visualizza</button>
 
- <ul>
-   <li *ngFor="let song of songList">
-    {{song.album.title}} : {{song | json}}
-   </li>
- </ul> 
- 
-
- {{songList | json}}
-
+    <app-songlist *ngIf = "hide: 1" [canzo]="canzoneData"></app-songlist>

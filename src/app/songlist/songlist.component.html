@@ -1,0 +1,4 @@
+<div *ngFor="let c of canzo" (click)="onClick(c)">
+    Titolo album: {{c.album.title}}- Titolo: {{c.title}}  - Data uscita {{c.data_uscita}}  - Durata: {{c.durata}}
+</div>
+<app-dettagli [cDettagli] = "selectedC"></app-dettagli>

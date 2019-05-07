@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { AlbumList } from './albumList.model';
 import { Album } from './album.model';
 import { Song } from './song.model';
-
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -11,14 +12,22 @@ import { Song } from './song.model';
 })
 
 export class AppComponent {
-  
+
   title = "Benvenuti al canzoniere";
   albums = AlbumList;
   selectedAlbum: Album = AlbumList[0];
   songList: Song[];
- 
+  obsCanzone: Observable<Song[]>;
+  canzoneData: Song[];
 
-  constructor() { }
+  constructor(public http:HttpClient) {this.makeTypedRequest(); }
+
+   makeTypedRequest(): void {
+    //oFoo : Observable<Foo[]>; va dichiarato tra gli attributi della classe
+    this.obsCanzone = this.http.get<Song[]>('https://my-json-server.typicode.com/malizia-g/hotel/songlist');
+    this.obsCanzone.subscribe(data => { this.canzoneData = data;  });
+  }
+
   ngOnInit() {
     this.songList = new Array <Song>();
   }
